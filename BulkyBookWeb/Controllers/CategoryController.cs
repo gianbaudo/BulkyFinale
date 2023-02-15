@@ -19,6 +19,7 @@ namespace BulkyBookWeb.Controllers
             IEnumerable<Category> categoryListObject = _db.Categories;
             return View(categoryListObject);
         }
+
         //get Create
         public IActionResult Create()
         {
@@ -38,7 +39,8 @@ namespace BulkyBookWeb.Controllers
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+				TempData["success"] = "Category created successfully";
+				return RedirectToAction("Index");
             }
             return View(obj);
         }
@@ -70,6 +72,7 @@ namespace BulkyBookWeb.Controllers
 			{
 				_db.Categories.Update(obj);
 				_db.SaveChanges();
+				TempData["success"] = "Category updated successfully";
 				return RedirectToAction(nameof(Index));
 			}
 			return View(obj);
@@ -91,10 +94,15 @@ namespace BulkyBookWeb.Controllers
 			return View(categoryFromDb);
 		}
 
-		[HttpPost]
+		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
-		public IActionResult DeletePost(int id)
+		public IActionResult DeletePost(int id, [Bind("Id")] Category category)
 		{
+			if (id != category.Id)
+			{
+				return NotFound();
+			}
+
 			var obj = _db.Categories.Find(id);
 			if (obj == null)
 			{
@@ -102,6 +110,7 @@ namespace BulkyBookWeb.Controllers
 			}
 			_db.Categories.Remove(obj);
 			_db.SaveChanges();
+			TempData["success"] = "Category deleted successfully";
 			return RedirectToAction(nameof(Index));
 		}
 
