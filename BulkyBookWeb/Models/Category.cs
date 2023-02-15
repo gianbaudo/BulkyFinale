@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BulkyBookWeb.Models;
 
@@ -11,10 +12,11 @@ public class Category
     public int Id { get; set; }
 
     [Required]
-
-    public string Name { get; set; } = null!;
-
-    public int DisplayOrder { get; set; }
+    
+	public string Name { get; set; } = null!;
+	[DisplayName("Display order")]
+	[Range(1, 100, ErrorMessage = "{0} must be between {1} and {2}")]
+	public int DisplayOrder { get; set; }
 
     public DateTime CreatedDateTime { get; set; } = DateTime.Now;
 
