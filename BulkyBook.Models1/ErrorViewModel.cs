@@ -1,5 +1,5 @@
 
-namespace BulkyBookWeb.Models;
+namespace BulkyBook.Models1;
 public class ErrorViewModel
 {
     public string? RequestId { get; set; }

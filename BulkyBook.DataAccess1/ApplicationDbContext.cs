@@ -1,5 +1,4 @@
-﻿using BulkyBookWeb.Models;
-
+﻿using BulkyBook.Models1;
 using Microsoft.EntityFrameworkCore;
 
 namespace BulkyBookWeb.Data
@@ -13,7 +12,6 @@ namespace BulkyBookWeb.Data
         //ApplicationDbContext riceverà nel costruttore le opzioni per potersi connettere al database
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-
         {
 
         }
