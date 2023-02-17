@@ -52,12 +52,12 @@ namespace BulkyBookWeb.Controllers
 			{
 				return NotFound();
 			}
-			var categoryFromDb = _db.Categories.Find(id);
-			if (categoryFromDb == null)
+			var categoryFromDbFirst = _db.Categories.FirstOrDefault(c => c.Id == id);
+			if (categoryFromDbFirst == null)
 			{
 				return NotFound();
 			}
-			return View(categoryFromDb);
+			return View(categoryFromDbFirst);
 
 		}
 		[HttpPost]
@@ -86,12 +86,13 @@ namespace BulkyBookWeb.Controllers
 			{
 				return NotFound();
 			}
-			var categoryFromDb = _db.Categories.Find(id);
-			if (categoryFromDb == null)
+			var categoryFromDbFirst = _db.Categories.FirstOrDefault(u => u.Id == id);
+			if (categoryFromDbFirst == null)
 			{
 				return NotFound();
 			}
-			return View(categoryFromDb);
+			return View(categoryFromDbFirst);
+
 		}
 
 		[HttpPost, ActionName("Delete")]
@@ -103,12 +104,12 @@ namespace BulkyBookWeb.Controllers
 				return NotFound();
 			}
 
-			var obj = _db.Categories.Find(id);
-			if (obj == null)
+			var categoryFromDbFirst = _db.Categories.FirstOrDefault(u => u.Id == id);
+			if (categoryFromDbFirst == null)
 			{
 				return NotFound();
 			}
-			_db.Categories.Remove(obj);
+			_db.Categories.Remove(categoryFromDbFirst);
 			_db.SaveChanges();
 			TempData["success"] = "Category deleted successfully";
 			return RedirectToAction(nameof(Index));
