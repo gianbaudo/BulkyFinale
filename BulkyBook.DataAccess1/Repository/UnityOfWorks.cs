@@ -1,4 +1,5 @@
 ﻿using BulkyBook.DataAccess1.Repository.IRepository;
+using BulkyBook.Models1;
 using BulkyBookWeb.Data;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,10 @@ namespace BulkyBook.DataAccess1.Repository
 		{
 			_db = db;
 			Category = new CategoryRepository(_db);
+			CoverType = new CoverTypeRepository(_db);
 		}
 		public ICategoryRepository Category { get; private set; } = null!;
+		public ICoverTypeRepository CoverType { get; private set; } = null!;
 
 		public void Save()
 		{
