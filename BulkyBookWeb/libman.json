@@ -9,6 +9,11 @@
         "css/*",
         "js/*"
       ]
+    },
+    {
+      "library": "sweetalert2@11.7.2",
+      "destination": "wwwroot/lib/sweetalert2/dist/"
     }
+
   ]
 }
