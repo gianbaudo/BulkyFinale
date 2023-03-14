@@ -53,15 +53,22 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 }),
             };
 
-            if (id == null || id == 0)
-            {
-                //create product
-                return View(productVM);
-            }
-            else
-            {
-                //update product
-            }
+			if (id == null || id == 0)
+			{
+				//restituisce una view per la creazione di un nuovo prodotto
+				return View(productVM);
+			}
+			else
+			{
+				var productInDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+				if (productInDb != null)
+				{
+					productVM.Product = productInDb;
+					//restituisce una view per l'aggiornamento del prodotto
+					//questa view riceve un productVM con tutti i campi di Product
+					return View(productVM);
+				}
+			}
             return View(productVM);
         }
 
@@ -133,6 +140,16 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var productList = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
+            return Json(new { data = productList });
+        }
 
-	}
+        #endregion
+
+
+    }
 }
